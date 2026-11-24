@@ -1,0 +1,18 @@
+# بیلد
+build/
+dist/
+*.spec
+__pycache__/
+
+# داده و لاگ
+tasks.json
+alarm_log.txt
+settings.json
+categories.json
+
+# بسته‌ها
+*.rar
+*.docx
+
+# سیستم
+Thumbs.db

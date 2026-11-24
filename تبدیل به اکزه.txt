@@ -1,0 +1,4 @@
+pyinstaller --name="Task-Manager" --icon="assets/Icon.ico" --noconsole --add-data="assets;assets" --hidden-import=flet --noconfirm --onedir app.py
+
+pyinstaller --name="TaskManager" --icon="assets/Icon.ico" --noconsole --add-data "assets;assets" --add-data "fonts;fonts" --hidden-import=plyer.platforms.win.notification --hidden-import=persiantools --hidden-import=pygame --hidden-import=winsound --hidden-import=winotify --noconfirm --onefile app.py
+pyinstaller --name="TaskManager" --icon="assets/Icon.ico" --noconsole --add-data "assets;assets" --hidden-import=plyer.platforms.win.notification --hidden-import=persiantools --hidden-import=pygame --hidden-import=winsound --hidden-import=winotify --noconfirm --onefile app.py

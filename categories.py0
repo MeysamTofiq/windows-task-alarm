@@ -1,0 +1,62 @@
+import json
+import os
+
+class CategoryManager:
+    def __init__(self, filename="categories.json"):
+        self.filename = filename
+        self.categories = []
+        self.load_categories()
+    
+    def load_categories(self):
+        """بارگذاری دسته‌بندی‌ها از فایل"""
+        if os.path.exists(self.filename):
+            try:
+                with open(self.filename, 'r', encoding='utf-8') as f:
+                    self.categories = json.load(f)
+            except Exception as e:
+                print(f"خطا در بارگذاری دسته‌بندی‌ها: {e}")
+                self.categories = self._get_default_categories()
+        else:
+            self.categories = self._get_default_categories()
+            self.save_categories()
+    
+    def save_categories(self):
+        """ذخیره دسته‌بندی‌ها در فایل"""
+        try:
+            with open(self.filename, 'w', encoding='utf-8') as f:
+                json.dump(self.categories, f, ensure_ascii=False, indent=2)
+        except Exception as e:
+            print(f"خطا در ذخیره دسته‌بندی‌ها: {e}")
+    
+    def _get_default_categories(self):
+        """دسته‌بندی‌های پیش‌فرض"""
+        return [
+            {"name": "کاری", "icon": "work", "color": "#00FFFF"},
+            {"name": "شخصی", "icon": "person", "color": "#00FF99"},
+            {"name": "خرید", "icon": "shopping_cart", "color": "#FFD700"},
+            {"name": "ورزش", "icon": "fitness_center", "color": "#FF0055"},
+            {"name": "مطالعه", "icon": "book", "color": "#9C27B0"},
+        ]
+    
+    def get_all_categories(self):
+        """دریافت تمام دسته‌بندی‌ها"""
+        return self.categories
+    
+    def add_category(self, name, icon="folder", color="#00FFFF"):
+        """افزودن دسته‌بندی جدید"""
+        category = {"name": name, "icon": icon, "color": color}
+        self.categories.append(category)
+        self.save_categories()
+        return category
+    
+    def delete_category(self, name):
+        """حذف دسته‌بندی"""
+        self.categories = [c for c in self.categories if c['name'] != name]
+        self.save_categories()
+    
+    def get_category_by_name(self, name):
+        """دریافت دسته‌بندی با نام"""
+        for cat in self.categories:
+            if cat['name'] == name:
+                return cat
+        return None
